@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="CRM_Mock" context="/crm">
+    <resource methods="POST" uri-template="/customer">
+        <inSequence>
+            <payloadFactory media-type="json">
+                <format>{
+                    "customer_id": "${payload.customer_id}",
+                    "first_name": "Juan",
+                    "last_name": "Perez",
+                    "tax_information_number": "20-12345678-9",
+                    "address": {
+                        "street": "Av. Siempre Viva",
+                        "number": "742",
+                        "city": "Buenos Aires",
+                        "state": "CABA",
+                        "postal_code": "C1000",
+                        "account_id": "12345"
+                    }
+                }</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+    </resource>
+</api>

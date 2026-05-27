@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="BillingService_Mock" context="/billing">
+    <resource methods="POST" uri-template="/account">
+        <inSequence>
+            <payloadFactory media-type="json">
+                <format>{
+                    "account_id": "${payload.account_id}",
+                    "balance": 31.65,
+                    "currency": "ARS",
+                    "account_activity": [
+                        {
+                            "date": "2026-04-01",
+                            "description": "Monthly Subscription",
+                            "amount": -5000.00
+                        },
+                        {
+                            "date": "2026-04-05",
+                            "description": "Payment",
+                            "amount": 2000.00
+                        },
+                        {
+                            "date": "2026-04-10",
+                            "description": "Extra Package",
+                            "amount": -1500.00
+                        },
+                        {
+                            "date": "2026-04-12",
+                            "description": "Payment",
+                            "amount": 300.00
+                        },
+                        {
+                            "date": "2026-04-14",
+                            "description": "Extra Charges",
+                            "amount": -769.25
+                        }
+                    ]
+                }</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+    </resource>
+</api>

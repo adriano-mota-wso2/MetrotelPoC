@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<localEntry key="CRM_Mock_Conn" xmlns="http://ws.apache.org/ns/synapse">
+    <http.init>
+        <connectionType>HTTP</connectionType>
+        <name>CRM_Mock_Conn</name>
+        <baseUrl>http://localhost:8290</baseUrl>
+    </http.init>
+</localEntry>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api xmlns="http://ws.apache.org/ns/synapse" name="Middleware_PoC" context="/middleware">
+    <resource methods="POST" uri-template="/customer">
+        <inSequence>
+            <!-- Store customer_id from incoming request -->
+            <variable name="customer_id" type="STRING" expression="${payload.customer_id}"/>
+
+            <!-- Build and call CRM_Mock API -->
+            <payloadFactory media-type="json">
+                <format>{"customer_id": "${vars.customer_id}"}</format>
+            </payloadFactory>
+            <http.post configKey="CRM_Mock_Conn">
+                <relativePath>/crm/customer</relativePath>
+                <headers>[[&quot;Content-Type&quot;,&quot;application/json&quot;]]</headers>
+                <requestBodyType>JSON</requestBodyType>
+                <requestBodyJson>{${payload}}</requestBodyJson>
+                <responseVariable>crmResponse</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </http.post>
+
+            <!-- Build and call BillingService_Mock API using customer_id as account_id -->
+            <payloadFactory media-type="json">
+                <format>{"account_id": "${vars.customer_id}"}</format>
+            </payloadFactory>
+            <http.post configKey="BillingService_Mock_Conn">
+                <relativePath>/billing/account</relativePath>
+                <headers>[[&quot;Content-Type&quot;,&quot;application/json&quot;]]</headers>
+                <requestBodyType>JSON</requestBodyType>
+                <requestBodyJson>{${payload}}</requestBodyJson>
+                <responseVariable>billingResponse</responseVariable>
+                <overwriteBody>false</overwriteBody>
+            </http.post>
+
+            <!-- Build merged response -->
+            <payloadFactory media-type="json">
+                <format>{
+                    "customer": {
+                        "id": "${vars.crmResponse.payload.customer_id}",
+                        "first_name": "${vars.crmResponse.payload.first_name}",
+                        "last_name": "${vars.crmResponse.payload.last_name}",
+                        "tax_information_number": "${vars.crmResponse.payload.tax_information_number}",
+                        "address": {
+                            "street": "${vars.crmResponse.payload.address.street}",
+                            "number": "${vars.crmResponse.payload.address.number}",
+                            "city": "${vars.crmResponse.payload.address.city}",
+                            "state": "${vars.crmResponse.payload.address.state}",
+                            "postal_code": "${vars.crmResponse.payload.address.postal_code}"
+                        }
+                    },
+                    "billing": {
+                        "account_id": "${vars.billingResponse.payload.account_id}",
+                        "balance": ${vars.billingResponse.payload.balance},
+                        "currency": "${vars.billingResponse.payload.currency}",
+                        "account_activity": ${vars.billingResponse.payload.account_activity}
+                    }
+                }</format>
+            </payloadFactory>
+            <respond/>
+        </inSequence>
+    </resource>
+</api>
