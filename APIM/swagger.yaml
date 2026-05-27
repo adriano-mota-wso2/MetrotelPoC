@@ -1,0 +1,149 @@
+openapi: 3.0.0
+info:
+  title: SystemA_API
+  version: 1.0.0
+servers:
+  - url: /
+security:
+  - default: []
+paths:
+  /customer:
+    post:
+      summary: Call Middleware
+      description: >-
+        This endpoint processes the middleware call with the provided customer
+        ID.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer_id:
+                  type: string
+                  example: '100245'
+        required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Middleware called successfully
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid customer ID
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: An unexpected error occurred
+      security:
+        - default: []
+      x-auth-type: Application & Application User
+      x-throttling-tier: Unlimited
+      x-wso2-application-security:
+        security-types:
+          - oauth2
+        optional: false
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: string
+          example: '100245'
+    ResponseMessage:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Middleware called successfully
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid customer ID
+    InternalError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: An unexpected error occurred
+    MiddlewareRequest:
+      type: object
+      properties:
+        customer_id:
+          type: string
+          example: '100245'
+    MiddlewareResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Middleware called successfully
+  securitySchemes:
+    default:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://test.com
+          scopes: {}
+x-wso2-api-key-header: ApiKey
+x-wso2-auth-header: Authorization
+x-wso2-cors:
+  corsConfigurationEnabled: true
+  accessControlAllowOrigins:
+    - '*'
+  accessControlAllowCredentials: false
+  accessControlAllowHeaders:
+    - authorization
+    - Access-Control-Allow-Origin
+    - Content-Type
+    - SOAPAction
+    - apikey
+    - Internal-Key
+  accessControlAllowMethods:
+    - GET
+    - PUT
+    - POST
+    - DELETE
+    - PATCH
+    - OPTIONS
+x-wso2-production-endpoints:
+  urls:
+    - http://localhost:8290/middleware/
+  type: http
+x-wso2-sandbox-endpoints:
+  urls:
+    - http://localhost:8290/middleware/
+  type: http
+x-wso2-basePath: /systema_api/1.0.0
+x-wso2-transports:
+  - http
+  - https
+x-wso2-application-security:
+  security-types:
+    - oauth2
+  optional: false
+x-wso2-response-cache:
+  enabled: false
+  cacheTimeoutInSeconds: 300
