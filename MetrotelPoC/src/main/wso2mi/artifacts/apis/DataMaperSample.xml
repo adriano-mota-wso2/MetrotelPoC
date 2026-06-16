@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/datamapersample" name="DataMaperSample" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="POST" uri-template="/">
+        <inSequence>
+            <datamapper config="resources:/datamapper/XmlToJsonMapper/XmlToJsonMapper.dmc"
+                        inputSchema="resources:/datamapper/XmlToJsonMapper/XmlToJsonMapper_inputSchema.json"
+                        inputType="XML"
+                        outputSchema="resources:/datamapper/XmlToJsonMapper/XmlToJsonMapper_outputSchema.json"
+                        outputType="JSON"/>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+        </faultSequence>
+    </resource>
+</api>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<artifacts>
+  <artifact name="resources_datamapper_XmlToJsonMapper_XmlToJsonMapper_dmc" groupId="com.microintegrator.projects" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
+    <item>
+      <file>XmlToJsonMapper.dmc</file>
+      <path>/_system/governance/mi-resources/datamapper/XmlToJsonMapper</path>
+      <mediaType>text/plain</mediaType>
+      <properties></properties>
+    </item>
+  </artifact>
+  <artifact name="resources_datamapper_XmlToJsonMapper_XmlToJsonMapper_inputSchema_json" groupId="com.microintegrator.projects" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
+    <item>
+      <file>XmlToJsonMapper_inputSchema.json</file>
+      <path>/_system/governance/mi-resources/datamapper/XmlToJsonMapper</path>
+      <mediaType>text/plain</mediaType>
+      <properties></properties>
+    </item>
+  </artifact>
+  <artifact name="resources_datamapper_XmlToJsonMapper_XmlToJsonMapper_outputSchema_json" groupId="com.microintegrator.projects" version="1.0.0" type="registry/resource" serverRole="EnterpriseIntegrator">
+    <item>
+      <file>XmlToJsonMapper_outputSchema.json</file>
+      <path>/_system/governance/mi-resources/datamapper/XmlToJsonMapper</path>
+      <mediaType>text/plain</mediaType>
+      <properties/>
+    </item>
+  </artifact>
+</artifacts>
